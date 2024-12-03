@@ -35,16 +35,16 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /path/to/Jellyfin/config
+      device: /path/to/jellyfin/config
   cache-data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /path/to/Jellyfin/cache
+      device: /path/to/jellyfin/cache
   media-data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /path/to/Jellyfin/media
+      device: /path/to/jellyfin/media
