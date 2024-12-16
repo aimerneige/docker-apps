@@ -1,15 +1,19 @@
-version: '3'
-
 services:
   mysql-dev:
     image: mysql:latest
     container_name: mysql_dev
     restart: unless-stopped
     ports:
-      - "3306:3306"
+      - target: 3306
+        published: 3306
+        protocol: tcp
+        mode: host
     volumes:
       - ./data/mysql_dev_db:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "VO7n9F3mYvxdbzV"
       MYSQL_ROOT_HOST: "%"
-
+    deploy:
+      resources:
+        limits:
+          memory: 2G
