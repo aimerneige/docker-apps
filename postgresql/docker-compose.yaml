@@ -1,0 +1,27 @@
+services:
+  db:
+    container_name: postgres
+    image: docker.aimersoft.org/postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: aimer
+      POSTGRES_PASSWORD: example
+      PGDATA: /data/postgres
+      POSTGRES_DB: bank
+    volumes:
+      - ./data:/data/postgres
+    ports:
+      - target: 5432
+        published: 5432
+        protocol: tcp
+        mode: host
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d postgres" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    shm_size: 128mb
+    deploy:
+      resources:
+        limits:
+          memory: 2G
