@@ -3,6 +3,7 @@ services:
     depends_on:
       - registry-server
     image: joxit/docker-registry-ui:main
+    restart: unless-stopped
     ports:
       - 8080:80
     networks:
@@ -24,6 +25,7 @@ services:
     image: registry:2.8.2
     volumes:
       - /mnt/mirror/docker:/var/lib/registry
+    restart: unless-stopped
     networks:
       - net
     environment:
