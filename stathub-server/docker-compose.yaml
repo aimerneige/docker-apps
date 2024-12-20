@@ -1,6 +1,7 @@
 services:
   stathub-server:
     image: hub.aiursoft.cn/aiursoft/stathub
+    container_name: stathub_server
     restart: unless-stopped
     volumes:
       - ./data:/data
