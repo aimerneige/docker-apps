@@ -1,0 +1,11 @@
+services:
+  stathub-server:
+    image: hub.aiursoft.cn/aiursoft/stathub
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    ports:
+      - target: 5000
+        published: 5000
+        protocol: tcp
+        mode: host

@@ -1,0 +1,13 @@
+services:
+  stathub-client:
+    image: hub.aiursoft.cn/aiursoft/stathub-client
+    container_name: stathub_client
+    restart: unless-stopped
+    volumes:
+      - /etc/lsb-release:/etc/lsb-release:ro
+      - /etc/os-release:/etc/os-release:ro
+      - /etc/motd:/etc/motd:ro
+      - /etc/hostname:/etc/hostname:ro
+    privileged: true
+    environment:
+      - SERVER_ENDPOINT="https://stathub.aimersoft.org/"
