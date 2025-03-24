@@ -1,0 +1,50 @@
+services:
+  jellyfin:
+    image: docker.aimersoft.org/jellyfin_local:latest
+    container_name: jellyfin
+    restart: 'unless-stopped'
+    volumes:
+      - config-data:/config
+      - cache-data:/cache
+      - media-data:/mnt/data
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      - TZ=UTC
+    ports:
+      - target: 1900
+        published: 1900
+        protocol: udp
+        mode: host
+      - target: 7359
+        published: 7359
+        protocol: udp
+        mode: host
+      - target: 8096
+        published: 8096
+        protocol: tcp
+        mode: host
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+
+volumes:
+  config-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/jellyfin/config
+  cache-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/jellyfin/cache
+  media-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/jellyfin/media
