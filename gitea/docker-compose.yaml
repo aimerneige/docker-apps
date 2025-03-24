@@ -1,0 +1,67 @@
+services:
+  gitea-server:
+    image: docker.aimersoft.org/gitea/gitea:1.23.5
+    restart: unless-stopped
+    environment:
+      - GITEA__database__DB_TYPE=mysql
+      - GITEA__database__HOST=gitea-db:3306
+      - GITEA__database__NAME=gitea
+      - GITEA__database__USER=gitea
+      - GITEA__database__PASSWD=gitea
+    networks:
+      - gitea
+    volumes:
+      - gitea-data:/var/lib/gitea
+      - gitea-config:/etc/gitea
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - target: 3000
+        published: 3000
+        protocol: tcp
+        mode: host
+      - target: 22
+        published: 222
+        protocol: tcp
+        mode: host
+    depends_on:
+      - gitea-db
+
+  gitea-db:
+    image: docker.aimersoft.org/mysql:8
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=gitea
+      - MYSQL_USER=gitea
+      - MYSQL_PASSWORD=gitea
+      - MYSQL_DATABASE=gitea
+    networks:
+      - gitea
+    volumes:
+      - gitea-mysql-data:/var/lib/mysql
+
+
+volumes:
+  gitea-mysql-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/gitea/mysql
+  gitea-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/gitea/data
+  gitea-config:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/gitea/config
+
+
+networks:
+  gitea:
+    external: false
