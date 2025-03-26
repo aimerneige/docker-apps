@@ -1,0 +1,12 @@
+services:
+  dashdot:
+    image: mauricenino/dashdot:5.9.2
+    restart: no
+    environment:
+      - DASHDOT_ENABLE_CPU_TEMPS=true
+      - PANEL_APP_PORT_HTTP=3001
+    ports:
+      - 3001:3001
+    privileged: true
+    volumes:
+      - /:/mnt/host:ro
