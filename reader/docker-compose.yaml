@@ -1,0 +1,26 @@
+services:
+  reader:
+    image: hectorqin/reader
+    container_name: reader
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    networks:
+      - share_net
+    volumes:
+      - ./logs:/logs
+      - ./storage:/storage
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - READER_APP_USERLIMIT=50
+      - READER_APP_USERBOOKLIMIT=200
+      - READER_APP_CACHECHAPTERCONTENT=true
+      - READER_APP_SECURE=true
+      - READER_APP_SECUREKEY=ckBYr2rt8Q)o)-2tjpiTeG]h56g1@wY/Yj-)o@J7P34kC0Q%p
+      - READER_APP_INVITECODE=Paimon0928
+networks:
+  share_net:
+    driver: bridge
+
+# 书源数量？
+# 管理员账号？
