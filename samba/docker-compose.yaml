@@ -1,0 +1,62 @@
+services:
+  smb:
+    image: andyzhangx/samba:win-fix
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - WORKGROUP=WORKGROUP
+    ports:
+      - target: 139
+        published: 139
+        protocol: tcp
+        mode: host
+      - target: 445
+        published: 445
+        protocol: tcp
+        mode: host
+    command: >
+      sh -c "
+      useradd -M -s /sbin/nologin ${USER1_NAME} &&
+      useradd -M -s /sbin/nologin ${USER2_NAME} &&
+      (echo ${USER1_PASS}; echo ${USER1_PASS}) | pdbedit -a -u ${USER1_NAME} &&
+      (echo ${USER2_PASS}; echo ${USER2_PASS}) | pdbedit -a -u ${USER2_NAME} &&
+      smbd -FS --no-process-group
+      "
+    volumes:
+      - ./smb.conf:/etc/samba/smb.conf
+      - samba-data:/mnt/data:ro
+      - samba-media:/mnt/media:ro
+      - samba-public:/mnt/public
+      - samba-backup:/mnt/backup
+    healthcheck:
+      test: ["CMD", "smbclient", "-L", "//localhost", "-U", "USER%PASSWORD"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  samba-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /swarm-vol/samba-data
+  samba-media:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /swarm-vol/samba-media
+  samba-public:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /swarm-vol/samba-public
+  samba-backup:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /swarm-vol/samba-backup
