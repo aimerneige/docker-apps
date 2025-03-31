@@ -1,32 +1,65 @@
 services:
   filerun-web:
-    image: filerun/filerun:8.1
+    image: docker.aimersoft.org/filerun/filerun:8.1
+    restart: unless-stopped
     environment:
       FR_DB_HOST: filerun-db
       FR_DB_PORT: 3306
-      FR_DB_NAME: your_filerun_database
-      FR_DB_USER: your_filerun_username
-      FR_DB_PASS: your_filerun_password
+      FR_DB_NAME: filerun
+      FR_DB_USER: filerun
+      FR_DB_PASS: filerun
       APACHE_RUN_USER: www-data
       APACHE_RUN_USER_ID: 33
       APACHE_RUN_GROUP: www-data
       APACHE_RUN_GROUP_ID: 33
     depends_on:
       - filerun-db
-    links:
-      - db:db
     ports:
-      - "80:80"
+      - target: 80
+        published: 18080
+        protocol: tcp
+        mode: host
     volumes:
-      - /filerun/html:/var/www/html
-      - /filerun/user-files:/user-files
+      - filerun-html:/var/www/html
+      - filerun-user-files:/user-files
+    networks:
+      - filerun
 
   filerun-db:
-    image: mariadb:10.1
+    image: docker.aimersoft.org/mariadb:10.1
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: your_mysql_root_password
-      MYSQL_USER: your_filerun_username
-      MYSQL_PASSWORD: your_filerun_password
-      MYSQL_DATABASE: your_filerun_database
+      MYSQL_ROOT_PASSWORD: filerun
+      MYSQL_USER: filerun
+      MYSQL_PASSWORD: filerun
+      MYSQL_DATABASE: filerun
     volumes:
-      - /filerun/db:/var/lib/mysql
+      - filerun-dbdata:/var/lib/mysql
+    networks:
+      - filerun
+
+
+volumes:
+  filerun-dbdata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/filerun/dbdata
+  filerun-html:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/filerun/html
+  filerun-user-files:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/filerun/user-files
+
+
+networks:
+  filerun:
+    external: false
