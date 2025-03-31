@@ -1,9 +1,9 @@
 services:
   smb:
-    image: andyzhangx/samba:win-fix
+    image: docker.aimersoft.org/andyzhangx/samba:win-fix
     restart: unless-stopped
     env_file:
-      - .env
+      - ./.env
     environment:
       - WORKGROUP=WORKGROUP
     ports:
@@ -16,7 +16,7 @@ services:
         protocol: tcp
         mode: host
     command: >
-      sh -c "
+      bash -c "
       useradd -M -s /sbin/nologin ${USER1_NAME} &&
       useradd -M -s /sbin/nologin ${USER2_NAME} &&
       (echo ${USER1_PASS}; echo ${USER1_PASS}) | pdbedit -a -u ${USER1_NAME} &&
@@ -41,22 +41,22 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /swarm-vol/samba-data
+      device: /docker-vol/smb/samba-data
   samba-media:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /swarm-vol/samba-media
+      device: /docker-vol/smb/samba-media
   samba-public:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /swarm-vol/samba-public
+      device: /docker-vol/smb/samba-public
   samba-backup:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /swarm-vol/samba-backup
+      device: /docker-vol/smb/samba-backup
