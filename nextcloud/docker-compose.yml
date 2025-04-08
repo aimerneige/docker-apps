@@ -46,7 +46,7 @@ services:
           memory: 128M
 
   nc-db:
-    image: docker.aimersoft.org/mysql
+    image: docker.aimersoft.org/mysql:8
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     networks: 
       - nextcloud

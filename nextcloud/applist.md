@@ -1,0 +1,15 @@
+- calendar
+- contacts
+- cookbook
+- deck
+- drawio
+- epubviewer
+- gpxpod
+- mail
+- notes
+- passwords
+- richdocuments
+- richdocumentscode
+- spreed
+- tasks
+- whiteboard
