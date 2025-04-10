@@ -10,7 +10,7 @@ services:
     devices:
       - /dev/dri:/dev/dri
     environment:
-      - TZ=UTC
+      - TZ=Asia/Shanghai
     ports:
       - target: 1900
         published: 1900
