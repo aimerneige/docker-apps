@@ -1,0 +1,23 @@
+services:
+  opengist:
+    image: ghcr.io/thomiceli/opengist:1.10
+    restart: unless-stopped
+    ports:
+      - target: 6157 # HTTP port
+        published: 6157
+        protocol: tcp
+        mode: host
+      - target: 2222 # SSH port
+        published: 2222
+        protocol: tcp
+        mode: host
+    volumes:
+      - opengist:/opengist
+
+volumes:
+  opengist:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/opengist
