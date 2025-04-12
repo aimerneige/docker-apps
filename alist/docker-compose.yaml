@@ -1,0 +1,24 @@
+services:
+  alist:
+    image: docker.aimersoft.org/xhofe/alist:latest-aio
+    restart: unless-stopped
+    ports:
+      - target: 5244
+        published: 5244
+        protocol: tcp
+        mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=022
+      - TZ=Asia/Shanghai
+    volumes:
+      - alist-data:/opt/alist/data
+
+volumes:
+  alist-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/alist/data
