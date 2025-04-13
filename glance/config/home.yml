@@ -5,30 +5,38 @@
     - size: small
       widgets:
         - type: calendar
-          first-day-of-week: monday
+          first-day-of-week: sunday
 
         - type: rss
           limit: 10
           collapse-after: 3
           cache: 12h
           feeds:
-            - url: https://selfh.st/rss/
-              title: selfh.st
-            - url: https://ciechanow.ski/atom.xml
-            - url: https://www.joshwcomeau.com/rss.xml
-              title: Josh Comeau
-            - url: https://samwho.dev/rss.xml
-            - url: https://ishadeed.com/feed.xml
-              title: Ahmad Shadeed
+            - url: https://anduin.aiursoft.cn/rss
+              title: Anduin
+            - url: https://kenvix.com/rss.xml
+              title: Kenvix
+            - url: https://aimer.aiursoft.cn/en/index.xml
+              title: Aimer
+            # - url: https://selfh.st/rss/
+            #   title: selfh.st
+            # - url: https://www.joshwcomeau.com/rss.xml
+            #   title: Josh Comeau
+            # - url: https://ishadeed.com/feed.xml
+            #   title: Ahmad Shadeed
+            # - url: https://ciechanow.ski/atom.xml
+            #   title: Bartosz Ciechanowski
+            # - url: https://samwho.dev/rss.xml
+            #   title: Sam
 
         - type: twitch-channels
           channels:
-            - theprimeagen
-            - j_blow
-            - piratesoftware
-            - cohhcarnage
-            - christitustech
-            - EJ_SA
+            - nacho_dayo
+            - vedal987
+            - chess
+            - codinggarden
+            - camman18
+            - iskall85
 
     - size: full
       widgets:

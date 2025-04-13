@@ -1,0 +1,135 @@
+- name: Start
+  hide-desktop-navigation: true
+  columns:
+    - size: small
+      widgets:
+        - type: calendar
+          first-day-of-week: sunday
+
+        - type: twitch-channels
+          collapse-after: 7
+          channels:
+            - nacho_dayo
+            - vedal987
+            - chess
+            - codinggarden
+            - camman18
+            - iskall85
+
+    - size: full
+      widgets:
+        - type: search
+          search-engine: google
+          new-tab: true
+          autofocus: true
+          placeholder: "Type here to search…"
+          bangs:
+            - title: GitHub
+              shortcut: "!gh"
+              url: https://github.com/search?q={QUERY}&type=repositories
+            - title: YouTube
+              shortcut: "!yt"
+              url: https://www.youtube.com/results?search_query={QUERY}
+            - title: DuckDuckGo
+              shortcut: "!ddg"
+              url: https://duckduckgo.com/?q={QUERY}
+            - title: Wikipedia
+              shortcut: "!wiki"
+              url: https://en.wikipedia.org/w/index.php?search={QUERY}
+
+        - type: monitor
+          cache: 1m
+          title: Services
+          show-failing-only: false
+          sites:
+            - title: Jellyfin
+              url: https://jellyfin.aimersoft.org
+              icon: /assets/jellyfin.svg
+            - title: Gitea
+              url: https://gitea.aimersoft.org
+              icon: /assets/gitea.svg
+            - title: Nextcloud
+              url: https://nextcloud.aimersoft.org
+              icon: /assets/nextcloud.svg
+            - title: Alist
+              url: https://alist.aimersoft.org
+              icon: /assets/alist.svg
+            - title: Docker
+              url: https://docker.aimersoft.org
+              icon: /assets/docker.svg
+              alt-status-codes:
+                - 401
+            - title: Opengist
+              url: https://gist.aimersoft.org
+              icon: /assets/opengist.svg
+            - title: qBitorrent
+              url: https://qbt.aimersoft.org
+              icon: /assets/qbittorrent.svg
+            - title: Ubuntu Mirror
+              url: https://mirrors.aimersoft.org/ubuntu
+              icon: /assets/ubuntu.svg
+
+            # - title: Immich
+            #   url: https://immich.aimersoft.org
+            #   icon: /assets/immich-logo.png
+            # - title: AdGuard Home
+            #   url: https://adguard.aimersoft.org
+            #   icon: /assets/adguard-logo.png
+            # - title: Vaultwarden
+            #   url: https://vault.aimersoft.org
+            #   icon: /assets/vaultwarden-logo.png
+
+        - type: videos
+          limit: 25
+          collapse-after-rows: 2
+          style: grid-cards
+          cache: 1h
+          channels:
+            # - UCXuqSBlHAE6Xw-yeJA0Tunw # Linus Tech Tips
+            - UCR-DXc1voovS8nhAvccRZhg # Jeff Geerling
+            - UCsBjURrPoezykLs9EqgamOA # Fireship
+            - UCBJycsmduvYEL83R_U4JriQ # Marques Brownlee
+            - UCHnyfMqiRRG1u-2MsSQLbXA # Veritasium
+          # playlists:
+          #   - PL8mG-RkN2uTyZZ00ObwZxxoG_nJbs3qec
+          #   - PL8mG-RkN2uTxTK4m_Vl2dYR9yE41kRdBg
+
+    - size: small
+      widgets:
+        - type: clock
+          hour-format: 24h
+          timezones:
+            - timezone: UTC
+              label: UTC
+            - timezone: America/New_York
+              label: New York
+            - timezone: Asia/Tokyo
+              label: Tokyo
+
+
+        - type: group
+          widgets:
+            - type: rss
+              title: rss
+              limit: 15
+              collapse-after: 7
+              cache: 24h
+              style: vertical-list
+              single-line-titles: true
+              feeds:
+                - url: https://anduin.aiursoft.cn/rss
+                  title: Anduin's Blog
+                  limit: 5
+                - url: https://kenvix.com/rss.xml
+                  title: Kenvix's Blog
+                  limit: 5
+                - url: https://aimer.aiursoft.cn/en/index.xml
+                  title: Aimer's Blog
+                  limit: 5
+
+            - type: hacker-news
+              cache: 24h
+              limit: 15
+              sort-by: top
+              collapse-after: 7
+              single-line-titles: true
