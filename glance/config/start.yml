@@ -68,6 +68,9 @@
             - title: Ubuntu Mirror
               url: https://mirrors.aimersoft.org/ubuntu
               icon: /assets/ubuntu.svg
+            - title: Speedtest
+              url: https://speedtest.aimersoft.org
+              icon: /assets/speedtest.svg
 
             # - title: Immich
             #   url: https://immich.aimersoft.org

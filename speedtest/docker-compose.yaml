@@ -1,0 +1,10 @@
+services:
+  speedtest:
+    image: docker.aimersoft.org/ghcr.io/librespeed/speedtest:latest
+    restart: unless-stopped
+    environment:
+      MODE: standalone
+      TITLE: "LibreSpeed"
+      TELEMETRY: "false"
+    ports:
+      - "80:8080"
