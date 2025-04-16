@@ -1,0 +1,19 @@
+services:
+  tracer:
+    image: docker.aimersoft.org/aiursoft/tracer:latest
+    restart: unless-stopped
+    ports:
+      - target: 5000
+        published: 5000
+        protocol: tcp
+        mode: host
+    volumes:
+      - tracer-data:/data
+
+volumes:
+  tracer-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/tracer
