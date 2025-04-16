@@ -71,6 +71,9 @@
             - title: Speedtest
               url: https://speedtest.aimersoft.org
               icon: /assets/speedtest.svg
+            - title: Tracer
+              url: https://tracer.aimersoft.org
+              icon: /assets/wired-network.svg
 
             # - title: Immich
             #   url: https://immich.aimersoft.org
