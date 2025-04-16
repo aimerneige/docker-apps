@@ -74,6 +74,12 @@
             - title: Tracer
               url: https://tracer.aimersoft.org
               icon: /assets/wired-network.svg
+            - title: Navidrome
+              url: https://navidrome.aimersoft.org
+              icon: /assets/navidrome.svg
+            - title: Swingmusic
+              url: https://music.aimersoft.org
+              icon: /assets/swingmusic.svg
 
             # - title: Immich
             #   url: https://immich.aimersoft.org
