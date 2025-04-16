@@ -1,0 +1,27 @@
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    user: 1000:1000 # should be owner of volumes
+    ports:
+      - target: 4533
+        published: 4533
+        protocol: tcp
+        mode: host
+    restart: unless-stopped
+    volumes:
+      - navidrome-data:/data
+      - navidrome-music:/music:ro
+
+volumes:
+  navidrome-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/navidrome/data
+  navidrome-music:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/navidrome/music
