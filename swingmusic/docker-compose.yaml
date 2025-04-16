@@ -1,0 +1,27 @@
+services:
+  swingmusic:
+    image: ghcr.io/swingmx/swingmusic:latest
+    restart: unless-stopped
+    user: 1000:1000
+    ports:
+      - target: 1970
+        published: 1970
+        protocol: tcp
+        mode: host
+    volumes:
+      - swingmusic-config:/config
+      - swingmusic-music:/music
+
+volumes:
+  swingmusic-config:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/swingmusic/config
+  swingmusic-music:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/navidrome/music
