@@ -1,0 +1,58 @@
+services:
+  koel:
+    image: phanan/koel:latest
+    restart: unless-stopped
+    depends_on:
+      - koel-db
+    ports:
+      - target: 80
+        published: 8080
+        protocol: tcp
+        mode: host
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=koel-db
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+    volumes:
+      - koel-music:/music
+      - koel-covers:/var/www/html/public/img/covers
+      - koel-search_index:/var/www/html/storage/search-indexes
+
+  koel-db:
+    image: docker.aimersoft.org/mariadb:11
+    restart: unless-stopped
+    volumes:
+      - koel-db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+
+volumes:
+  koel-db:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/koel/db
+  koel-music:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/koel/music
+  koel-covers:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/koel/covers
+  koel-search_index:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/koel/search_index
