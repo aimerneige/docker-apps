@@ -1,0 +1,48 @@
+services:
+  web:
+    image: jvmilazz0/kavita
+    volumes:
+      - manga-data:/manga
+      - comics-data:/comics
+      - books-data:/mnt/data
+      - config-data:/kavita/config
+    # networks:
+    #   - proxy_app
+    ports:
+      - target: 5000
+        published: 5000
+        protocol: tcp
+        mode: host
+    environment:
+      - TZ=Asia/Shanghai
+
+# networks:
+#   proxy_app:
+#     external: true
+
+volumes:
+  manga-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/kavita/manga
+  comics-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/kavita/comics
+  books-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/kavita/books
+  config-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/kavita/config
+
