@@ -1,0 +1,20 @@
+services:
+  memos:
+    image: neosmemo/memos:stable
+    user: 1000:1000
+    restart: unless-stopped
+    volumes:
+      - memos:/var/opt/memos
+    ports:
+      - target: 5230
+        published: 5230
+        protocol: tcp
+        mode: host
+
+volumes:
+  memos:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/memos
