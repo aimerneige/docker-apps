@@ -1,0 +1,6 @@
+services:
+  howtocook:
+    image: docker.aimersoft.org/ghcr.io/anduin2017/how-to-cook:latest
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
