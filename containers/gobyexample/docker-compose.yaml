@@ -1,0 +1,6 @@
+services:
+  gobyexample:
+    image: docker.aimersoft.org/gobyexample:latest
+    restart: no
+    ports:
+      - 8000:8000
