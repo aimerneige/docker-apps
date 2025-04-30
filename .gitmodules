@@ -1,0 +1,3 @@
+[submodule "containers/gobyexample/src"]
+	path = containers/gobyexample/src
+	url = https://github.com/mmcgrana/gobyexample
