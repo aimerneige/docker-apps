@@ -1,0 +1,35 @@
+services:
+  # 服务名称为：clickhouse-server
+  clickhouse-server:
+    # image：指定镜像，可以为镜像名称或镜像id，如果本地没有该镜像，compose会尝试pull该镜像
+    image: clickhouse-server-demo:1.0
+    # container_name：指定容器名称，默认为 项目名称_服务名称_序号 的格式
+    container_name: clickhouse-server_1
+    # hostname：指定容器主机名
+    hostname: clickhouse-server_1
+    # networks配置该容器连接的网络，指定到文件末尾定义的networks
+    networks:
+      - test-bridge
+    # ports：暴露端口信息，格式为 宿主机端口:容器端口；仅指定容器端口时，宿主机会随机选择端口，类似于docker run -p
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+      - "9004:9004"
+    # expose：暴露端口，但不映射到宿主机，所以外部无法访问该端口，仅能容器内部访问使用
+    expose:
+      - 9009
+    # volumes：数据卷挂载路径设置，类似于docker run --volumn=hostdir:containerDir，也可指定文件权限
+    volumes:
+    # 例如：将当前目录下的config.xml文件映射到容器中的/etc/clickhouse-server/config.xml文件
+      - ./config.xml:/etc/clickhouse-server/config.xml
+      - ./users.xml:/etc/clickhouse-server/users.xml
+      - ./data:/var/lib/clickhouse
+      - ./log/clickhouse-server.log:/var/log/clickhouse-server/clickhouse-server.log
+      - ./log/clickhouse-server.err.log:/var/log/clickhouse-server/clickhouse-server.err.log
+
+networks:
+# networks名称为test-bridge，和上面services中networks下的名称对应
+  test-bridge:
+  # external表示compose启动时会找到名为docker-compose-default的已存在的网络，若未找到该网络，则docker-compose up启动时会报错，同时通过 docker network ls 查看本地目前有哪些网络
+    external:
+      name: docker_compose_default
