@@ -1,0 +1,32 @@
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:s6
+    ports:
+      - "8080:80"
+    volumes:
+      - filebrowser-db:/database
+      - filebrowser-config:/config
+      - filebrowser-srv:/srv
+    environment:
+      PUID: 1000
+      PGID: 1000
+
+volumes:
+  filebrowser-db:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/filebrowser/database
+  filebrowser-config:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/filebrowser/config
+  filebrowser-srv:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker-vol/filebrowser/srv
